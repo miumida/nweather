@@ -95,8 +95,6 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
 
         fcast = self.coordinator.data.nowFcast_data.get("wetrTxt")
 
-        _LOGGER.error(f"{currentTm} {sunRiseTm} {sunSetTm} {fcast}")
-
         if '맑음' in fcast and ( currentTm > sunSetTm or currentTm < sunRiseTm ) :
             return CONDITIONS["맑음(밤)"]
 
@@ -113,8 +111,6 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
         sunRiseTm = self.coordinator.data.sunrise
 
         fcast = self.coordinator.data.nowFcast_data.get("wetrTxt")
-
-        _LOGGER.error(f"{currentTm} {sunRiseTm} {sunSetTm} {fcast}")
 
         if '맑음' in fcast and ( currentTm > sunSetTm or currentTm < sunRiseTm ) :
             return CONDITIONS["맑음(밤)"]
