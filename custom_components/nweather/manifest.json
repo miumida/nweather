@@ -1,6 +1,6 @@
 {
   "domain": "nweather",
-  "name": "네이버 날씨",
+  "name": "네이버 날씨 v2",
   "config_flow": true,
   "documentation": "https://github.com/miumida/nweather",
   "requirements": ["beautifulsoup4==4.9.3"],
