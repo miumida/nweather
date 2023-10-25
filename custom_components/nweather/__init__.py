@@ -111,8 +111,6 @@ class NaverWeatherData:
         self.sunrise = weatherSummary[ATTR_SUNRISE]
         self.sunset  = weatherSummary[ATTR_SUNSET]
 
-        _LOGGER.error(self.nowFcast_data["stmpr"])
-
         return self
 
 
