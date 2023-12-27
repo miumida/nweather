@@ -12,7 +12,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant import config_entries
 from homeassistant.core import callback
 
-from .const import DOMAIN, CONF_RGN_CD, BSE_URL, VAR_SUMMARY, ATTR_NOWFCAST
+from .const import DOMAIN, CONF_RGN_CD, BSE_URL, VAR_SUMMARY, VAR_API, ATTR_NOWFCAST
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -72,14 +72,19 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             html = await getNweather(session, area)
 
-            weatherSummary = str2Json(VAR_SUMMARY, html)
-            _LOGGER.error(f'[{DOMAIN}] weatherSummary -> {weatherSummary}')
+            blockApiResult = str2Json(VAR_API, html)
 
-            lareaNm      = weatherSummary[ATTR_NOWFCAST]["lareaNm"]
-            fullAreaName = weatherSummary[ATTR_NOWFCAST]["fullAreaName"]
-            title_area = f"{lareaNm} {fullAreaName}({area})"
+            choiceResult = blockApiResult["results"]["choiceResult"]
+            weatherSummary = choiceResult["nowSynthesisFcast~~1"]
 
-            _LOGGER.error(f'[{DOMAIN}] title_area -> {title_area}')
+            #_LOGGER.error(f'[{DOMAIN}] weatherSummary -> {weatherSummary}')
+
+            mareaNm = weatherSummary[ATTR_NOWFCAST]["mareaNm"]
+            sareaNm = weatherSummary[ATTR_NOWFCAST]["sareaNm"]
+
+            title_area = f"{mareaNm} {sareaNm}({area})"
+
+            #_LOGGER.error(f'[{DOMAIN}] title_area -> {title_area}')
 
             return self.async_create_entry(title=title_area, data=user_input)
 
