@@ -75,9 +75,9 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        lareaNm      = self.coordinator.data.nowFcast_data.get("lareaNm")
-        fullAreaName = self.coordinator.data.nowFcast_data.get("fullAreaName")
-        name = f"{lareaNm} {fullAreaName}"
+        mareaNm = self.coordinator.data.nowFcast_data.get("mareaNm")
+        sareaNm = self.coordinator.data.nowFcast_data.get("sareaNm")
+        name = f"{mareaNm} {sareaNm}"
 
         self._name = name
 
@@ -95,6 +95,8 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
 
         fcast = self.coordinator.data.nowFcast_data.get("wetrTxt")
 
+        #_LOGGER.error(f"{currentTm} {sunRiseTm} {sunSetTm} {fcast}")
+
         if '맑음' in fcast and ( currentTm > sunSetTm or currentTm < sunRiseTm ) :
             return CONDITIONS["맑음(밤)"]
 
@@ -111,6 +113,8 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
         sunRiseTm = self.coordinator.data.sunrise
 
         fcast = self.coordinator.data.nowFcast_data.get("wetrTxt")
+
+        #_LOGGER.error(f"{currentTm} {sunRiseTm} {sunSetTm} {fcast}")
 
         if '맑음' in fcast and ( currentTm > sunSetTm or currentTm < sunRiseTm ) :
             return CONDITIONS["맑음(밤)"]
@@ -179,7 +183,7 @@ class NaverWeather(CoordinatorEntity, WeatherEntity):
     def _forecast(self) -> list[Forecast] | None:
         forecast = []
 
-        _LOGGER.error(self.coordinator.data.hdayFcastList)
+        #_LOGGER.error(self.coordinator.data.hdayFcastList)
 
         for data in self.coordinator.data.hdayFcastList:
             dt = datetime.datetime.strptime(data["aplYmd"], '%Y%m%d')
