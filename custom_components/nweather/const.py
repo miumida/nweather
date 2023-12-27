@@ -128,6 +128,7 @@ CONDITIONS = {
     "가끔 눈": "snowy",
     "우박": "snowy",
 
+    "흐리고 비/눈": "snowy",
     "구름많고 비/눈": "snowy",
 
     "황사": "fog",
